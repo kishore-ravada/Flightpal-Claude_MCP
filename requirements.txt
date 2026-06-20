@@ -1,0 +1,13 @@
+mcp
+langchain
+langchain-community
+langchain-chroma
+langchain-huggingface
+sentence-transformers
+chromadb
+pypdf
+python-docx
+pandas
+openpyxl
+requests
+python-dotenv

@@ -1,304 +1,221 @@
-✈️ FlightPal — AI Travel Assistant
+# ✈️ FlightPal — AI Travel Assistant
 
-FlightPal is an AI-powered travel assistant that combines Retrieval-Augmented Generation (RAG), Model Context Protocol (MCP), LangChain, and Claude Desktop to provide real-time flight information, weather updates, and airline policy assistance through natural language conversations.
+FlightPal is an AI-powered travel assistant built with **Python, LangChain, RAG, MCP (Model Context Protocol), and Claude Desktop**. It provides real-time flight information, weather updates, and airline policy assistance using live APIs and a local knowledge base.
 
-Instead of searching across multiple airline websites and travel portals, users can simply ask FlightPal questions such as:
+---
 
-"Check flight AA100"
-"What's the weather at Heathrow?"
-"What baggage allowance does Emirates allow?"
-"Search Air India cabin baggage rules"
+## 🚀 Features
 
-FlightPal intelligently retrieves live information from APIs while also searching a local knowledge base of airline documents.
+* ✈️ Live Flight Status
+* 🌤 Live Weather
+* 🌦 Flight + Destination Weather
+* 📚 Airline Policy Search (RAG)
+* 🤖 Claude Desktop MCP Integration
 
-🚀 Features
-✈️ Live Flight Status
+---
 
-Retrieve real-time flight information using AviationStack API.
+## 🛠 Tech Stack
 
-Returns:
+* Python
+* LangChain
+* ChromaDB
+* HuggingFace Embeddings
+* Model Context Protocol (MCP)
+* Anthropic Claude Desktop
+* AviationStack API
+* Open-Meteo API
 
-Flight Status
-Airline
-Departure Airport
-Arrival Airport
-Departure Gate
-Arrival Gate
-Flight Delays
+---
 
-Example
+## 🏗 Architecture
 
-Check flight AA100
-🌤 Live Weather
+```text
+Claude Desktop
+       │
+       ▼
+ FlightPal MCP Server
+       │
+ ┌─────┼───────────────┐
+ │     │               │
+ ▼     ▼               ▼
+Flight Weather      RAG Engine
+ API     API            │
+                         ▼
+                  ChromaDB
+                         │
+                         ▼
+                 Airline PDF Documents
+```
 
-Retrieve current weather information for any city or airport.
+---
 
-Returns
+## 📂 Project Structure
 
-Temperature
-Wind Speed
-Location
-Country
-
-Example
-
-Weather in London
-🌦 Flight + Weather
-
-Combines two tools.
-
-Input
-
-AA100
-
-Returns
-
-Flight Status
-Arrival Airport
-Destination Weather
-📚 Airline Knowledge Base (RAG)
-
-FlightPal includes a Retrieval-Augmented Generation (RAG) pipeline that searches airline documentation stored locally.
-
-Supported information includes
-
-Cabin baggage rules
-Checked baggage allowance
-Dangerous goods
-Visa requirements
-Travel policies
-Airline baggage fees
-Special baggage
-International travel information
-🤖 Claude Desktop Integration
-
-FlightPal is exposed as an MCP Server, allowing Claude Desktop to invoke custom Python tools directly.
-
-Available MCP tools
-
-weather
-flight_status
-flight_weather
-baggage
-
-Claude automatically selects the appropriate tool based on the user's request.
-
-🏗 Project Architecture
-                    Claude Desktop
-                           │
-                           │
-                 Model Context Protocol
-                           │
-                           ▼
-                FlightPal MCP Server
-                           │
-       ┌───────────────────┼────────────────────┐
-       │                   │                    │
-       ▼                   ▼                    ▼
- Flight API          Weather API         RAG Pipeline
-                                               │
-                                               ▼
-                                       Chroma Vector DB
-                                               │
-                                               ▼
-                                     Airline PDF Documents
-📂 Project Structure
+```text
 FlightPal-Claude/
-
-│
-├── data/
-│      Airline PDF documents
-│
-├── database/
-│      Chroma Vector Database
 │
 ├── src/
-│
 │   ├── api/
-│   │      Flight API
-│   │      Weather API
-│   │
 │   ├── mcp/
-│   │      MCP Server
-│   │
 │   ├── rag/
-│   │      Document Loader
-│   │      Vector Store
-│   │      Build Database
-│   │      RAG Pipeline
-│   │
 │   ├── tools/
-│   │      weather_tool.py
-│   │      flight_tool.py
-│   │      flight_weather_tool.py
-│   │      rag_tool.py
-│   │
-│   └── config.py
 │
+├── data/
+├── database/
 ├── tests/
-│
 ├── requirements.txt
-│
 └── README.md
-🛠 Technologies Used
-AI
-Anthropic Claude Desktop
-Model Context Protocol (MCP)
-LangChain
-Retrieval
-ChromaDB
-HuggingFace Embeddings
-APIs
-AviationStack API
-Open-Meteo API
-Programming Language
-Python 3.10+
-⚙️ Installation
-Clone Repository
-git clone https://github.com/<your-username>/FlightPal-Claude.git
+```
+
+---
+
+## ⚙️ Installation
+
+```bash
+git clone <repository-url>
 
 cd FlightPal-Claude
-Create Virtual Environment
-python -m venv venv
 
-Windows
+python -m venv venv
 
 venv\Scripts\activate
 
-Linux / Mac
-
-source venv/bin/activate
-Install Dependencies
 pip install -r requirements.txt
-🔑 Environment Variables
+```
 
-Create a .env file.
+---
 
+## 🔑 Configure Environment
+
+Create a `.env` file.
+
+```env
 AVIATIONSTACK_API_KEY=YOUR_API_KEY
-📄 Build the Knowledge Base
+```
 
-Load airline documents into ChromaDB.
+---
 
+## 📚 Build the Vector Database
+
+```bash
 python -m src.rag.build_db
+```
 
-Expected Output
+---
 
-Loaded:
-AirIndia.pdf
-Emirates.pdf
-American.pdf
+## 🧪 Run Tests
 
-Database Created Successfully
-🧪 Testing
-
-Run
-
+```bash
 python -m tests.test_tools
+```
 
-This verifies
+---
 
-Weather Tool
-Flight Tool
-Flight Weather Tool
-RAG Tool
-🤖 Running the MCP Server
+## 🤖 Claude Desktop Setup
 
-Normally you do not need to start the server manually.
+1. Open **Claude Desktop**
+2. Go to **Settings → Developer**
+3. Select **Edit Config**
+4. Add the FlightPal MCP configuration.
+5. Restart Claude Desktop.
+6. Verify **FlightPal → Running** in Developer Settings.
 
-Claude Desktop launches it automatically.
+Claude automatically discovers the following tools:
 
-Manual start (optional)
+* weather
+* flight_status
+* flight_weather
+* baggage
 
-python -m src.mcp.server
-🔌 Claude Desktop Setup
+---
 
-Open
+## 💬 Example Queries
 
-Claude Desktop
+* Check flight AA100
+* What's the weather in London?
+* Check AA100 and tell me the arrival weather.
+* What baggage allowance does Emirates allow?
+* Search Air India cabin baggage rules.
 
-Settings
+---
 
-Developer
+## 📄 Knowledge Base
 
-Edit Config
+The RAG system indexes airline documents including:
 
-Add the following configuration.
+* Air India
+* Emirates
+* American Airlines
+* UAE Visa Requirements
+* Dangerous Goods Policies
+* Baggage Rules
+* Travel Guides
 
-{
-  "mcpServers": {
-    "flightpal": {
-      "command": "C:\\projects\\FlightPal-Claude\\venv\\Scripts\\python.exe",
-      "args": [
-        "C:\\projects\\FlightPal-Claude\\src\\mcp\\server.py"
-      ],
-      "cwd": "C:\\projects\\FlightPal-Claude",
-      "env": {
-        "PYTHONPATH": "C:\\projects\\FlightPal-Claude"
-      }
-    }
-  }
-}
+---
 
-Restart Claude Desktop.
+## 🔮 Future Improvements
 
-Verify
+* Airport Information
+* Visa Checker
+* Lounge Finder
+* Security Wait Times
+* Voice Assistant
+* Streamlit / Gradio UI
+* Multi-Agent Travel Planner
 
-Developer Settings
+---
 
-FlightPal
+## 👨‍💻 Author
 
-Running
+**Kishore Ravada**
 
-Claude automatically discovers the following tools
+GitHub: https://github.com/<your-username>
 
-weather
-flight_status
-flight_weather
-baggage
-💬 Example Queries
-Flight Status
-Check flight AA100
-Weather
-What's the weather in London?
-Flight + Weather
-Check flight AA100 and tell me the arrival weather.
-Airline Policies
-What baggage allowance does Emirates allow?
-Travel Information
-Search Air India cabin baggage rules.
-📚 Knowledge Base
+LinkedIn: https://linkedin.com/in/<your-profile>
 
-Current documents include
+---
 
-Air India Travel Guide
-Emirates Baggage Rules
-American Airlines Baggage Policy
-UAE Visa Requirements
-Dangerous Goods Policy
-Special Baggage
-Checked Baggage Allowance
-Travel to USA Guide
+## 📜 License
 
-The RAG pipeline retrieves relevant document chunks and returns grounded responses with document sources.
-Future Enhancements
-Airport Information Tool
-Visa Requirement Tool
-Lounge Finder
-Terminal Maps
-Airport Security Wait Times
-Airline Policy Search
-Voice Assistant
-Streamlit / Gradio Interface
-Multi-Agent Travel Planner
-Hotel and Taxi Integration
-👨‍💻 Author
+MIT License
 
-Kishore Ravada
+## Screenshots
 
-GitHub: https://github.com/<kishore-ravada>
+### Claude Desktop
 
-LinkedIn: https://linkedin.com/in/<>
+![Claude Desktop](assets/claude-desktop.png)
 
-📜 License
+---
 
-This project is licensed under the MIT License.
+### Claude Desktop settings
+
+![Claude Desktop](assets/claude-desktop-settings.png)
+
+---
+### Acaess to MCP
+
+![Claude Desktop](assets/Access_to_MCP.png)
+
+---
+
+### Flight Status and weather
+
+![Flight Status](assets/flight_status_weather.png)
+
+---
+
+## Feaching tools
+
+![Flight Status](assets/Feaching_tools.png)
+
+---
+
+### Airline Policy RAG Search
+
+![RAG Search](assets/RAG-search.png)
+
+---
+
+### Project Architecture
+
+![Architecture](assets/architecture.png)

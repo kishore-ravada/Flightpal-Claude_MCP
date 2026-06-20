@@ -192,21 +192,22 @@ MIT License
 ![Claude Desktop](assets/claude-desktop-setting.png)
 
 ---
+
 ### Acaess to MCP
 
 ![Claude Desktop](assets/Access_to_MCP.png)
 
 ---
 
-### Flight Status and weather
-
-![Flight Status](assets/flight_status_weather.png)
-
----
-
 ## Feaching tools
 
 ![Flight Status](assets/Feaching_tools.png)
+
+---
+
+### Flight Status and weather
+
+![Flight Status](assets/flight_status_weather.png)
 
 ---
 

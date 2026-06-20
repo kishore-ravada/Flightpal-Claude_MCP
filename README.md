@@ -183,13 +183,13 @@ MIT License
 
 ### Claude Desktop
 
-![Claude Desktop](assets/claude-desktop.png)
+![Claude Desktop](assets/Claude-desktop.png)
 
 ---
 
 ### Claude Desktop settings
 
-![Claude Desktop](assets/claude-desktop-settings.png)
+![Claude Desktop](assets/claude-desktop-setting.png)
 
 ---
 ### Acaess to MCP
@@ -212,7 +212,7 @@ MIT License
 
 ### Airline Policy RAG Search
 
-![RAG Search](assets/RAG-search.png)
+![RAG Search](assets/RAG_search.png)
 
 ---
 
